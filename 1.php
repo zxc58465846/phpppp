@@ -12,7 +12,8 @@
   <input type="submit" name="submit" id="submit" value="送出">
 </p>
 </form>
-<?php
+<?php 
+session_start();
 /*session_staat();
 if (isset($_SESSION["value"])){
     $_SESSION=$value["value"]
@@ -20,56 +21,58 @@ if (isset($_SESSION["value"])){
 $id = $_POST['stuID'];
 	$pwd = $_POST['submit'];
 */
+
 $total=0;
-$num=array();
+   
+$rnum=array();
+while(count($rnum)<3)
+     {  
+          
+            $num=rand(0,9);  
+           if(!in_array($num,$rnum))
+           {
+               
+               $rnum[]=$num;
+               
+            }
+    }
+     //}
+  
+     $_SESSION["rnum"]=$rnum;
+     
+     print_r($rnum);
 do
 {
     $total++;
-    for($j=0;$j<=10;$j++)
-    {
-        
-    for($i=0;$i<=2;$i++)
-        {  
-            $num[$i]=rand(0,9);  
-        //    if(!in_array(rand(0,9,$num)))
-        //    {
+    //  for($j=0;$j<=10;$j++)
+    //  {   
+    while(count($rnum)<3)
+     {  
+          
+            $num=rand(0,9);  
+           if(!in_array($num,$rnum))
+           {
+               
+               $rnum[$count]=$num;
+               $count++;
+            }
+    }
+     //}
+     
+    $a=abs($rnum[1]-$rnum[0]);
+   
+    $b=abs($rnum[2]-$rnum[1]);
+    
+    print $total.'='.$rnum[0].','.$rnum[1].','.$rnum[2].','.$a.','.$b."<br/>";
 
-        //    }      
-        }
-      
+    if($total>=10)
+    {
+        print '總共試了10次或已經找到數字囉!';
     }
     
-    $a=abs($num[0]-$num[1]);
-   
-    $b=abs($num[1]-$num[2]);
-    
-    print $total.'='.$num[0].','.$num[1].','.$num[2].','.$a.','.$b."<br/>";
-    
-}while($total<10 && $a=$b);
-/*$a=$num[0];
-        $b=$num[1];
-        $c=$num[2];*/
-        //print_r($num); 
+}while($a!==$b && $total<10);
 
-/*$a[0]=rand(0,10);
-$b[1]=rand(0,10);
-$c[2]=rand(0,10);
-
-$total=array($a,$b,$c);*/
-/*
-function arrayByValue($a){
-$a[0]=0;
-return;
-}
-$b=array(1,2,3,4);
-$c=arrayByValue($b);
-/*row0=array(1,2,3);
-arr($row0);*/
-
-
-
-
-
+header("Location: 1main.php");
 ?>
 </body>
 </html>
